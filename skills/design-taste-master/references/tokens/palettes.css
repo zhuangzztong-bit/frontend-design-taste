@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Frontend Design Taste — Curated Color Palettes (CSS Variables)
+   Derived from Happy Hues (Color in Context) & Realtime Colors (60-30-10)
+   Usage: Set data-theme="warm-paper" | "nordic-mint" | "forest-blueprint" |
+          "midnight-amber" | "warm-espresso" | "electric-yellow" |
+          "indigo-rose" | "slate-dark" on <html> or any container.
+   ========================================================================== */
+
+:root,
+[data-theme="nordic-mint"] {
+  /* Happy Hues Palette 2 — Clean Modern SaaS */
+  --bg-primary: #fffffe;
+  --bg-secondary: #f2f4f6;
+  --bg-surface: #fffffe;
+  --text-headline: #00214d;
+  --text-body: #1b2d45;
+  --text-muted: #5b6b82;
+  --btn-bg: #00ebc7;
+  --btn-text: #00214d;
+  --accent: #00ebc7;
+  --secondary: #ff5470;
+  --tertiary: #fde24f;
+  --border-subtle: rgba(0, 33, 77, 0.12);
+  --border-strong: #00214d;
+}
+
+[data-theme="warm-paper"] {
+  /* Happy Hues Palette 17 — Editorial / Portfolio / Humanist */
+  --bg-primary: #fef6e4;
+  --bg-secondary: #f3d2c1;
+  --bg-surface: #fffffe;
+  --text-headline: #001858;
+  --text-body: #172c66;
+  --text-muted: #4b5d8c;
+  --btn-bg: #f582ae;
+  --btn-text: #001858;
+  --accent: #f582ae;
+  --secondary: #8bd3dd;
+  --tertiary: #f3d2c1;
+  --border-subtle: rgba(0, 24, 88, 0.14);
+  --border-strong: #001858;
+}
+
+[data-theme="forest-blueprint"] {
+  /* Happy Hues Palette 10 + Operate.so — Premium B2B / Engineering */
+  --bg-primary: #004643;
+  --bg-secondary: #abd1c6;
+  --bg-surface: #063836;
+  --text-headline: #fffffe;
+  --text-body: #abd1c6;
+  --text-muted: #82b2a5;
+  --btn-bg: #f9bc60;
+  --btn-text: #001e1d;
+  --accent: #f9bc60;
+  --secondary: #e8e4e6;
+  --tertiary: #e16162;
+  --border-subtle: rgba(171, 209, 198, 0.2);
+  --border-strong: #001e1d;
+  /* Light alternating section tokens */
+  --alt-bg: #abd1c6;
+  --alt-headline: #001e1d;
+  --alt-body: #0f3433;
+}
+
+[data-theme="midnight-amber"] {
+  /* Happy Hues Palette 13 — High-Contrast DevTool / Infrastructure */
+  --bg-primary: #0f0e17;
+  --bg-secondary: #fffffe;
+  --bg-surface: #1a1826;
+  --text-headline: #fffffe;
+  --text-body: #a7a9be;
+  --text-muted: #7f8198;
+  --btn-bg: #ff8906;
+  --btn-text: #fffffe;
+  --accent: #ff8906;
+  --secondary: #f25f4c;
+  --tertiary: #e53170;
+  --border-subtle: rgba(255, 255, 254, 0.12);
+  --border-strong: #ff8906;
+  --alt-bg: #fffffe;
+  --alt-headline: #0f0e17;
+  --alt-body: #2e2f3e;
+}
+
+[data-theme="warm-espresso"] {
+  /* Happy Hues Palette 16 — Studio / Craft / Lifestyle */
+  --bg-primary: #55423d;
+  --bg-secondary: #271c19;
+  --bg-surface: #3d2e2a;
+  --text-headline: #fffffe;
+  --text-body: #fff3ec;
+  --text-muted: #d6c3b8;
+  --btn-bg: #ffc0ad;
+  --btn-text: #271c19;
+  --accent: #ffc0ad;
+  --secondary: #e78fb3;
+  --tertiary: #9656a1;
+  --border-subtle: rgba(255, 243, 236, 0.16);
+  --border-strong: #140d0b;
+}
+
+[data-theme="electric-yellow"] {
+  /* Happy Hues Palette 14 — Startup / Energetic Tool / EdTech */
+  --bg-primary: #fffffe;
+  --bg-secondary: #e3f6f5;
+  --bg-surface: #fffffe;
+  --text-headline: #272343;
+  --text-body: #2d334a;
+  --text-muted: #5d647d;
+  --btn-bg: #ffd803;
+  --btn-text: #272343;
+  --accent: #ffd803;
+  --secondary: #e3f6f5;
+  --tertiary: #bae8e8;
+  --border-subtle: rgba(39, 35, 67, 0.14);
+  --border-strong: #272343;
+}
+
+[data-theme="indigo-rose"] {
+  /* Happy Hues Palette 12 — Creative Tech / Community / Portfolio */
+  --bg-primary: #232946;
+  --bg-secondary: #d4d8f0;
+  --bg-surface: #2d3457;
+  --text-headline: #fffffe;
+  --text-body: #b8c1ec;
+  --text-muted: #8f9ad1;
+  --btn-bg: #eebbc3;
+  --btn-text: #232946;
+  --accent: #eebbc3;
+  --secondary: #fffffe;
+  --tertiary: #d4d8f0;
+  --border-subtle: rgba(184, 193, 236, 0.18);
+  --border-strong: #121629;
+  --alt-bg: #d4d8f0;
+  --alt-headline: #232946;
+  --alt-body: #232946;
+}
+
+[data-theme="slate-dark"] {
+  /* Happy Hues Palette 4 — Crisp Dark SaaS / IDE / Dashboard (No Neon Glow) */
+  --bg-primary: #16161a;
+  --bg-secondary: #242629;
+  --bg-surface: #242629;
+  --text-headline: #fffffe;
+  --text-body: #94a1b2;
+  --text-muted: #72757e;
+  --btn-bg: #7f5af0;
+  --btn-text: #fffffe;
+  --accent: #7f5af0;
+  --secondary: #72757e;
+  --tertiary: #2cb67d;
+  --border-subtle: rgba(255, 255, 254, 0.08);
+  --border-strong: #010101;
+}

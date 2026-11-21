@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <!-- Outer frame with ~10% baked-in margin, high contrast for light & dark themes -->
+  <rect x="14" y="14" width="100" height="100" rx="22" fill="#0F172A" stroke="#F8FAFC" stroke-width="3"/>
+  <!-- Editorial grid lines -->
+  <line x1="14" y1="48" x2="114" y2="48" stroke="#334155" stroke-width="2"/>
+  <line x1="56" y1="48" x2="56" y2="114" stroke="#334155" stroke-width="2"/>
+  <!-- Warm editorial accent block (Happy Hues inspired) -->
+  <rect x="24" y="24" width="22" height="14" rx="4" fill="#F9BC60"/>
+  <rect x="54" y="27" width="48" height="8" rx="4" fill="#F8FAFC"/>
+  <!-- Typographic serif-inspired 'A' / craft mark -->
+  <path d="M35 96L42.5 64H46.5L54 96H48.5L46.9 88H42.1L40.5 96H35ZM43.1 83H45.9L44.5 73.5L43.1 83Z" fill="#FEF6E4"/>
+  <!-- Color swatch trio on bottom right -->
+  <circle cx="74" cy="72" r="9" fill="#00EBC7"/>
+  <circle cx="96" cy="72" r="9" fill="#FF6E6C"/>
+  <rect x="65" y="89" width="40" height="8" rx="4" fill="#94A3B8"/>
+</svg>

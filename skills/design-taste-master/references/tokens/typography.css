@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Frontend Design Taste — Typography Presets (100% Free Google Fonts)
+   Inspired by Typewolf Site of the Day & Fonts In Use three-font systems.
+   ========================================================================== */
+
+/* Preset 1: Editorial SaaS (Inspired by Speakeasy: Tobias + Diatype + Diatype Mono) */
+[data-type="editorial-saas"],
+:root {
+  --font-display: 'Newsreader', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'Inter', 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Noto Sans Mono', ui-monospace, monospace;
+}
+
+/* Preset 2: Precision Product / Portfolio (Inspired by Andrei Scarlatescu: Founders Grotesk + Diatype + Mono) */
+[data-type="precision-studio"] {
+  --font-display: 'Space Grotesk', 'PingFang SC', 'Noto Sans SC', sans-serif;
+  --font-sans: 'DM Sans', 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Noto Sans Mono', ui-monospace, monospace;
+}
+
+/* Preset 3: High-Contrast Creative (Inspired by Dirty Vine: Swear + DM Mono) */
+[data-type="editorial-bold"] {
+  --font-display: 'Fraunces', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'Work Sans', 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+}
+
+/* Preset 4: Warm Humanist Tech (Inspired by Daylight: Grenette + Styrene) */
+[data-type="warm-humanist"] {
+  --font-display: 'Source Serif 4', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'DM Sans', 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+}
+
+/* Preset 5: Dense Fintech / Dashboard (Inspired by Mercury / Shopify) */
+[data-type="fintech-dense"] {
+  --font-display: 'Plus Jakarta Sans', 'PingFang SC', 'Noto Sans SC', sans-serif;
+  --font-sans: 'Inter', 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Shared Typographic Scale & Anti-AI-Slop Polish */
+.taste-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.5vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  color: var(--text-headline);
+  text-wrap: balance;
+}
+
+.taste-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 2.8vw, 2.625rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: var(--text-headline);
+  text-wrap: balance;
+}
+
+.taste-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-body);
+  max-width: 65ch;
+}
+
+.taste-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.taste-numeric {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}

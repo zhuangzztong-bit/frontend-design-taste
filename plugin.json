@@ -1,0 +1,12 @@
+{
+  "name": "frontend-design-taste",
+  "displayName": "Frontend Design Taste",
+  "version": "1.0.0",
+  "description": "Eliminate generic AI-generated UI aesthetics using real-world design patterns from 10 curated design sites (Mobbin, Refero, Siteinspire, Lapa Ninja, Curated, Design Spells, Fonts In Use, Typewolf, Happy Hues, Realtime Colors), complete with reusable CSS/Tailwind color & typography tokens.",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "按照高审美标准重构我当前的前端页面，彻底消除 AI 模板味",
+    "为我的 SaaS 产品控制台设计一套参考 Mercury 和 Shopify 的布局与配色 Token",
+    "用 anti-ai-audit 审查这个页面的排版、配色、构图和微交互并给出修改方案"
+  ]
+}
