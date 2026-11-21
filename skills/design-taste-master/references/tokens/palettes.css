@@ -152,3 +152,46 @@
   --border-subtle: rgba(255, 255, 254, 0.08);
   --border-strong: #010101;
 }
+
+[data-theme="party-stage"] {
+  /* Scene A — Multi-Agent Party / Interactive Room / Social Stage (Warm Dark, Multi-Role) */
+  --bg-primary: #141218;
+  --bg-secondary: #1e1b24;
+  --bg-surface: #26222e;
+  --text-headline: #fffaf0;
+  --text-body: #d6cfe0;
+  --text-muted: #988fa8;
+  --btn-bg: #ffb703;
+  --btn-text: #141218;
+  --accent: #ffb703;
+  --secondary: #ff5d8f;
+  --tertiary: #2ec4b6;
+  --border-subtle: rgba(255, 250, 240, 0.12);
+  --border-strong: #ffb703;
+  /* Controlled participant / agent role identity chips */
+  --role-1: #ffb703;
+  --role-2: #ff5d8f;
+  --role-3: #2ec4b6;
+  --role-4: #8ecae6;
+}
+
+[data-theme="arcade-pop"] {
+  /* Scene A — Playful Community / Creative Party / Retro-Modern Light */
+  --bg-primary: #fffdf7;
+  --bg-secondary: #f4efe6;
+  --bg-surface: #ffffff;
+  --text-headline: #18181b;
+  --text-body: #34343c;
+  --text-muted: #6b6b78;
+  --btn-bg: #ff5a36;
+  --btn-text: #ffffff;
+  --accent: #ff5a36;
+  --secondary: #00b894;
+  --tertiary: #ffd166;
+  --border-subtle: rgba(24, 24, 27, 0.14);
+  --border-strong: #18181b;
+  --role-1: #ff5a36;
+  --role-2: #00b894;
+  --role-3: #3a86ff;
+  --role-4: #f59e0b;
+}

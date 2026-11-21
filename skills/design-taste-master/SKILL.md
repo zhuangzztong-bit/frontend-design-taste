@@ -1,55 +1,56 @@
 ---
 name: design-taste-master
-description: 构建高审美、无“AI味”前端界面的核心工作流。基于 10 个顶级设计网站（Mobbin、Refero、Siteinspire、Lapa Ninja、Curated、Design Spells、Fonts In Use、Typewolf、Happy Hues、Realtime Colors）的真实案例库与可直接复用的 CSS/Tailwind 配色排版 Token，适用于设计或编写 SaaS 控制台、Web 应用、品牌官网、落地页、作品集与交互组件。
+description: 场景驱动的高审美前端设计与优化工作流（v2.0）。先分析项目用途、用户使用场景与目标情绪，再自动路由到最匹配的设计流派与 10 大顶级设计网站（Mobbin、Refero、Siteinspire、Lapa Ninja、Curated、Design Spells、Fonts In Use、Typewolf、Happy Hues、Realtime Colors）真实标杆案例，结合可直接复用的 CSS/Tailwind Token 预设输出无“AI味”的前端界面。
 ---
 
-# Design Taste Master（反“AI味”前端设计工作流）
+# Design Taste Master v2.0（场景驱动 · 反“AI味”前端设计工作流）
 
-当你接到任何前端页面、组件、仪表盘或官网的设计与编码任务时，**禁止凭直觉直接写通用渐变卡片**。严格按以下 6 步工作流执行，并按场景查阅本技能附带的真实案例参考库与 Token 预设。
+**核心理念**：没有放之四海而皆准的“唯一高级风格”。把社交/多智能体派对做成冷冰冰的财务后台，和把财务后台做成花哨游戏厅一样糟糕。必须**先读懂项目用途与用户使用场景，再决定风格流派与优化策略**。
 
 ---
 
-## Step 1：判定产品类型与核心参考维度
-先明确当前任务属于哪类场景，并按需读取对应参考文档（不要跳过）：
-- **SaaS 产品 / 控制台 / 表格 / 引导流** → 必读 [01-product-ui-mobbin-refero.md](references/01-product-ui-mobbin-refero.md)
-- **品牌官网 / 营销落地页 / 个人作品集** → 必读 [02-landing-pages-siteinspire-lapa.md](references/02-landing-pages-siteinspire-lapa.md)
-- **需要微交互 / 动效 / 空状态 / 过渡细节** → 必读 [03-interactions-curated-designspells.md](references/03-interactions-curated-designspells.md)
-- **所有项目必读（定字与定色）**：
-  - [04-typography-fiu-typewolf.md](references/04-typography-fiu-typewolf.md)
-  - [05-color-systems-happyhues-realtime.md](references/05-color-systems-happyhues-realtime.md)
+## Step 1：项目用途与用户场景诊断（强制前置，不可跳过！）
+在写任何代码或给任何视觉建议前，先读取项目 README / 现有页面 / 需求说明，并必读 [00-scene-style-router.md](references/00-scene-style-router.md)，输出一份简短的 **《场景与风格决策卡》**：
 
-## Step 2：确立“媒介隐喻”与构图骨架（打破模板化的第一步）
-写代码前先用 2 句话写下你的视觉锚点：
-1. **物理/媒介隐喻是什么？**（例：Stripe Press 精装书脊、Operate 活页打孔纸、Arrova 1px 等距建筑线框、Haikoo 高密度索引目录、Mercury 精密财务账簿）
-2. **首屏展示什么真实 Artifact？**（例：直接展示可交互的筛选工作台、真实交易流卡片、终端命令 `ssh ...` 或实景视觉，禁用抽象发光球体与空洞插画）
+```markdown
+- **产品用途**：<一句话说清产品解决什么问题>
+- **核心用户与使用场景**：<谁在什么状态下打开它？高频核心动作是什么？>
+- **目标情绪关键词**：<2~3 个精准形容词，如“鲜活热闹 / 空间临场感”或“精密克制 / 值得托付”>
+- **选定风格流派**：<从流派 A~F 中选定主风格（必要时标明主副分区）>
+- **为何不选其他风格**：<一句话避免套错模板，如“非财务工具，禁用沉闷灰白报表风”>
+- **对标真实案例**：<从 10 大网站中选 2~3 个最契合的标杆>
+```
 
-## Step 3：套用真实色板与字体 Token（拒绝凭空拍 HEX）
-直接从内置 Token 预设中选择最契合业务气质的组合并引入项目：
-- 配色预设：`references/tokens/palettes.css`（8 套源自 Happy Hues 的完整区块交替色板）
-- 排版预设：`references/tokens/typography.css`（5 套源自 Typewolf / Fonts In Use 的免费 Google Fonts 三字族系统，含中文回退）
-- Tailwind 映射：`references/tokens/tailwind-theme.css`
+> 若用户需求非常模糊（看不出产品用途或目标人群），先提出 1~2 个聚焦场景的问题，不要盲目套风格。
 
-**强制核对**：
-- 全站核心色 <= 6 色（Realtime Colors 法则）。
-- 相邻区块必须有明暗或表面色交替（Happy Hues 区块交替）。
-- 亮色按钮（如 `#ffd803`、`#00ebc7`、`#f9bc60`、`#ffc0ad`）必须配深色文字，满足 WCAG AA（4.5:1）。
+## Step 2：按选定流派查阅对应参考库
+根据 Step 1 选定的流派，按需读取对应深度案例库（不要全读无关文档）：
+- **流派 A（社交 / 多智能体派对 / 游戏化社区）** → 重点读 [03-interactions-curated-designspells.md](references/03-interactions-curated-designspells.md) + [05-color-systems-happyhues-realtime.md](references/05-color-systems-happyhues-realtime.md)
+- **流派 B（B2B SaaS / 金融 / 控制台）** → 重点读 [01-product-ui-mobbin-refero.md](references/01-product-ui-mobbin-refero.md)
+- **流派 C（AI 画布 / 节点工作流）** → 重点读 [01-product-ui-mobbin-refero.md](references/01-product-ui-mobbin-refero.md)（Endless）+ [03-interactions-curated-designspells.md](references/03-interactions-curated-designspells.md)（Subframe）
+- **流派 D/E（开发工具 / 品牌官网 / 作品集）** → 重点读 [02-landing-pages-siteinspire-lapa.md](references/02-landing-pages-siteinspire-lapa.md)
+- **流派 F（消费级效率 / 生活方式）** → 重点读 [01-product-ui-mobbin-refero.md](references/01-product-ui-mobbin-refero.md)（SavvyCal）+ [03-interactions-curated-designspells.md](references/03-interactions-curated-designspells.md)（One Year / Notion Calendar）
+- **所有流派必读定字定色**：[04-typography-fiu-typewolf.md](references/04-typography-fiu-typewolf.md) + [05-color-systems-happyhues-realtime.md](references/05-color-systems-happyhues-realtime.md)
 
-## Step 4：填充真实业务密度与专业细节
-- **数据真实度**：SaaS / 金融 / 后台界面使用贴合领域的真实高精度数据（如 `$5,216,471.18`、`69.94% Allocated`、`Compare to: 28 Apr 2025`），并开启 `font-variant-numeric: tabular-nums`。
-- **双轨 CTA**：落地页首屏设置「低门槛主转化 + 探索/极客直达次入口」（如 `Start free` + `See plans →` / `Watch demo` / CLI 命令）。
-- **微视觉锚点**：适当在主标题中嵌入 1~2 个小图标，或在导航/区块角标使用等宽方括号索引（`[ 01 / OVERVIEW ]`），避免堆砌装饰卡片。
+## Step 3：确立与场景匹配的“媒介隐喻”与布局骨架
+- 互动/派对类（如 AgentParty）→ 舞台/房间/席位/实时气泡流，让角色状态与互动成为绝对主角；
+- 数据/后台类 → 固定窄侧栏 + 全局 `⌘K` 顶栏 + 高信噪比卡片与表格；
+- 官网/作品集 → 物理媒介隐喻（书脊、活页纸、等距线框、索引目录）+ 首屏直出真实 Artifact + 双轨 CTA。
 
-## Step 5：注入有分寸的微交互（Design Spells & Curated 标准）
-- 优先使用**空间连续过渡**（原地展开、共享元素 Morph、标签滑动切换），缓动曲线统一采用 `cubic-bezier(0.22, 1, 0.36, 1)`。
-- 禁用所有卡片的 `hover:scale-105 + shadow-2xl + neon glow`；改用 `1px` 描边提亮、箭头 `translate-x-0.5` 或背景微差。
-- 引导提示放在角落轻量 Popover 或顶栏进度胶囊，不粗暴弹窗阻断主界面。
-- 必须包含 `@media (prefers-reduced-motion: reduce)` 兼容。
+## Step 4：按场景挑选配色与字体 Token
+从内置预设中选择匹配当前流派的主题（也可基于 Realtime Colors 4 步法则做品牌色微调）：
+- 配色预设：[palettes.css](references/tokens/palettes.css)（含 10 套主题，覆盖活力派对 `party-stage` / `arcade-pop`、清爽 SaaS `nordic-mint`、森林工程 `forest-blueprint`、暖纸编辑 `warm-paper`、高反差暗黑 `midnight-amber` / `slate-dark` 等）
+- 排版预设：[typography.css](references/tokens/typography.css)（5 套 100% 免费 Google Fonts 三字族系统，含中文回退栈）
+- Tailwind 映射：[tailwind-theme.css](references/tokens/tailwind-theme.css)
 
-## Step 6：交付前 10 秒快速自检
-完成编码后，对照以下 6 条红线快速核验，有任一条未过立刻修正：
-1. 是否已彻底清除无意义的深蓝/紫蓝霓虹发光渐变？
-2. 是否使用了至少 2 种性格互补的字族（展示/衬线 + 正文无衬线 + 等宽元数据）？
-3. 所有按钮与正文是否达到清晰可读的对比度（无白字糊在亮按钮上）？
-4. 首屏是否展示了真实产品界面/真实媒介，而非抽象占位图？
-5. 数据与文案是否真实可信、无 `Lorem ipsum` 或假大空 `99.9%`？
-6. 悬停与过渡是否克制顺滑、无廉价缩放发光？
+**强制底线**：核心色 <= 6 色（多角色互动可加受控角色标识色）；亮按钮必配深色字（WCAG AA >= 4.5:1）；禁用无理由紫蓝霓虹光晕。
+
+## Step 5：填充场景真实度与定制化微交互
+- 数据/内容贴合真实业务，杜绝 `Lorem ipsum` 与空洞假数字；数值开启 `tabular-nums`。
+- 微交互匹配情绪：工具类追求利落克制（`cubic-bezier(0.22, 1, 0.36, 1)`、`1px` 描边提亮、原地 Morph）；互动/社区类增加有温度的物理弹性（`cubic-bezier(0.34, 1.56, 0.64, 1)`、长按递进反馈、角色状态呼吸感与无干扰小彩蛋）。
+- 必须兼容 `@media (prefers-reduced-motion: reduce)`。
+
+## Step 6：交付前场景契合度与反“AI味”双轨自检
+1. **场景契合度**：如果遮住 Logo，用户能不能在 3 秒内看出这是什么用途的产品、产生对应的情绪？
+2. **反“AI味”底线**：是否清除了廉价紫蓝发光渐变、纯黑纯白硬对比、单一无衬线、假数据、抽象占位图和廉价 `hover:scale-105` 发光？
+3. **对比度与可读性**：所有正文、按钮、标签在对应背景上是否清晰可读？
