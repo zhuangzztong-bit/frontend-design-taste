@@ -58,12 +58,12 @@ frontend-design-taste/
 
 **Windows (PowerShell 7)**：
 ```powershell
-git clone <你的仓库地址> "$env:USERPROFILE\.gemini\config\plugins\frontend-design-taste"
+git clone https://github.com/zhuangzztong-bit/frontend-design-taste.git "$env:USERPROFILE\.gemini\config\plugins\frontend-design-taste"
 ```
 
 **macOS / Linux**：
 ```bash
-git clone <你的仓库地址> ~/.gemini/config/plugins/frontend-design-taste
+git clone https://github.com/zhuangzztong-bit/frontend-design-taste.git ~/.gemini/config/plugins/frontend-design-taste
 ```
 
 ### 方式二：克隆后运行一键安装脚本

@@ -2,6 +2,8 @@
   "name": "frontend-design-taste",
   "displayName": "Frontend Design Taste",
   "version": "1.0.0",
+  "homepage": "https://github.com/zhuangzztong-bit/frontend-design-taste",
+  "repository": "https://github.com/zhuangzztong-bit/frontend-design-taste",
   "description": "Eliminate generic AI-generated UI aesthetics using real-world design patterns from 10 curated design sites (Mobbin, Refero, Siteinspire, Lapa Ninja, Curated, Design Spells, Fonts In Use, Typewolf, Happy Hues, Realtime Colors), complete with reusable CSS/Tailwind color & typography tokens.",
   "logo": "assets/logo.svg",
   "suggestedPrompts": [
