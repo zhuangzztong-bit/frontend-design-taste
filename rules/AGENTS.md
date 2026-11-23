@@ -31,7 +31,19 @@
 - 首屏直接展示与产品用途匹配的真实可感知界面、互动舞台、命令行或实景媒介，拒绝抽象几何配图与千篇一律的三列圆角卡片。
 - 落地页首屏优先提供**双轨 CTA 分层**（低门槛主入口 + 探索/极客直达次入口）。
 
-## 5. 微交互追求“连续性”与“分寸感”
-- 组件展开、筛选切换、视角切换优先采用共享空间位置过渡（Morph），禁用所有卡片无脑 `hover:scale-105 + shadow-2xl + glow`。
-- 引导与状态提示采用非阻断轻量容器（角落浮层、顶栏进度胶囊、内联清单），尊重 `prefers-reduced-motion`。
+## 5. 动效与微交互必须“看场景定人格、讲物理连续性”（v2.1 核心铁律）
+- **按场景绑定动效人格（`[data-motion]`，详见 `06-motion-choreography-system.md` 与 `tokens/motion.css`）**：
+  - 流派 A（社交/多智能体派对）→ `data-motion="playful"`（允许 `10%~13%` 物理弹簧过冲 `--ease-spring-bouncy`、长按粒子递进反馈、角色思考呼吸点 `.m-breathe`）
+  - 流派 B（B2B/金融控制台）→ `data-motion="precise"`（临界阻尼零回弹 `--ease-spring-snappy`、按压 `90ms` 即时响应、5×5 点阵轻量状态指示，绝不阻断输入）
+  - 流派 C（AI 画布/节点）→ `data-motion="spatial"`（跟手拖拽、共享容器原地 Morph 展开）
+  - 流派 D（开发工具/基础设施）→ `data-motion="technical"`（`180ms` 终端级利落切换、侧栏图标与容器同构伸缩）
+  - 流派 E（品牌官网/作品集）→ `data-motion="editorial"`（`600ms~700ms` 长减速揭示 `--ease-enter`、光标跟随局部柔光 `.m-spotlight`）
+  - 流派 F（消费级效率/生活）→ `data-motion="gentle"`（温润微过冲 `--ease-spring-soft`、原地二次确认 Morph）
+- **严禁 4 类“AI 廉价动效”**：
+  1. 严禁 `transition: all` 或直接过渡 `width`/`height`/`top`/`left`（只允许合成层属性 `transform`/`opacity`/`filter`/`clip-path` 及颜色/阴影，尺寸变化走 View Transitions 或 FLIP）。
+  2. 严禁所有卡片无脑 `hover:scale-105 + shadow-2xl + glow`（改用 `1px` 描边提亮 `.m-hover-line`、箭头微移 `2px` 或 Luma 式光标跟随局部径向光斑）。
+  3. 严禁进出场对称时长：必须遵循 **“入场从容减速（`--ease-enter`）、退场利落加速（`--ease-exit`，时长约为入场的 `70%`）”**。
+  4. 严禁大跨度飞入（位移超过 `24px`）与无限递增的列表延迟（列表交错入场步进 `40ms`，最多前 6 项递增，总附加延迟 $\le 240\text{ms}$）。
+- **原地連続过渡（Morph）优先于弹窗**：删除确认（参考 Things take time 原地拉伸确认条）、搜索展开（参考 One Year 胶囊 Morph 搜索栏）、分段滑块优先使用 `document.startViewTransition()` + `view-transition-name` 或 `@starting-style` 原地完成，减少模态框打断。
+- **无障碍与触屏红线**：在 `@media (prefers-reduced-motion: reduce)` 下取消位移/缩放/循环呼吸，保留 `120ms` 透明度淡入淡出以维持状态语义；悬停特效必须受 `@media (hover: hover)` 或 `@media (hover: none)` 保护。
 - 构建新页面或优化项目时，主动触发 `design-taste-master`；审查与改造已有项目时，触发 `anti-ai-audit`。

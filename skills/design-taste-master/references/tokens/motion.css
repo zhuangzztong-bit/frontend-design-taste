@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Frontend Design Taste — Motion Tokens & Recipes (v2.1)
+   Sources: Material 3 easing tokens, Apple HIG Motion, Motion (motion.dev)
+   spring model, MDN View Transitions / @starting-style / scroll-driven
+   animations, Design Spells real-world cases.
+   Spring linear() curves are generated from a damped-spring step response
+   (scripts/gen_spring_linear.py); --dur-* equals the physical settle time.
+   ========================================================================== */
+
+:root {
+  /* ---- 1. Duration scale (ms) — size & distance decide duration ---- */
+  --dur-instant: 90ms;    /* color / opacity feedback on press, toggle tick */
+  --dur-fast: 160ms;      /* hover, small chip/tooltip, focus ring */
+  --dur-base: 240ms;      /* dropdown, popover, tab indicator */
+  --dur-moderate: 320ms;  /* drawer, card expand, list reorder */
+  --dur-slow: 450ms;      /* full-panel / page-level transition (upper bound for tools) */
+  --dur-exit-ratio: 0.7;  /* exits ≈ 70% of enter duration — leave faster than you arrive */
+
+  /* ---- 2. Cubic-bezier easings (Material 3 tokens + UI standards) ---- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);            /* M3 emphasized: on-screen layout changes */
+  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);          /* M3 emphasized-decelerate: entering */
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);           /* M3 emphasized-accelerate: exiting */
+  --ease-out-quick: cubic-bezier(0.22, 1, 0.36, 1);       /* crisp product UI default */
+  --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);     /* looping ambient (breathing, shimmer) */
+
+  /* ---- 3. Spring easings via linear() (physically generated) ---- */
+  /* spring-snappy: stiffness=520 damping=45 zeta=0.99 overshoot=0% settle=315ms */
+  --ease-spring-snappy: linear(0, 0.0278, 0.0946, 0.1813, 0.2756, 0.3696, 0.4587, 0.5402, 0.6129, 0.6767, 0.7317, 0.7786, 0.8183, 0.8515, 0.8792, 0.9021, 0.9209, 0.9363, 0.9488, 0.959, 0.9673, 0.9739, 0.9793, 0.9836, 0.987, 0.9897, 0.9919, 0.9936, 1);
+  --dur-spring-snappy: 315ms;
+  /* spring-soft: stiffness=240 damping=26 zeta=0.84 overshoot=0.8% settle=450ms */
+  --ease-spring-soft: linear(0, 0.027, 0.0938, 0.1834, 0.2836, 0.3857, 0.4839, 0.5746, 0.6557, 0.7265, 0.7869, 0.8374, 0.8789, 0.9123, 0.9387, 0.9592, 0.9747, 0.9862, 0.9945, 1.0002, 1.004, 1.0063, 1.0074, 1.0078, 1.0077, 1.0072, 1.0066, 1.0058, 1);
+  --dur-spring-soft: 450ms;
+  /* spring-bouncy: stiffness=340 damping=20 zeta=0.54 overshoot=13.1% settle=501ms */
+  --ease-spring-bouncy: linear(0, 0.048, 0.168, 0.3273, 0.4996, 0.6655, 0.8118, 0.9312, 1.0209, 1.0817, 1.1168, 1.1308, 1.1287, 1.1155, 1.0959, 1.0734, 1.0511, 1.0308, 1.0139, 1.0008, 0.9915, 0.9858, 0.9831, 0.9828, 0.9841, 0.9865, 0.9893, 0.9923, 1);
+  --dur-spring-bouncy: 501ms;
+
+  /* ---- 4. Distance scale — small travel reads as "refined" ---- */
+  --shift-xs: 2px;   /* arrow nudge, pressed offset */
+  --shift-sm: 6px;   /* tooltip / menu enter offset */
+  --shift-md: 12px;  /* card / toast enter offset */
+  --shift-lg: 24px;  /* section reveal (never > 32px) */
+  --press-scale: 0.97;
+
+  /* ---- 5. Stagger ---- */
+  --stagger-step: 40ms;  /* per item; cap total stagger at ~240ms (6 items) */
+
+  /* ---- Default profile (overridden by [data-motion]) ---- */
+  --motion-ease-ui: var(--ease-out-quick);
+  --motion-ease-layout: var(--ease-spring-snappy);
+  --motion-dur-layout: var(--dur-spring-snappy);
+  --motion-ease-feedback: var(--ease-out-quick);
+  --motion-dur-feedback: var(--dur-fast);
+}
+
+/* ==========================================================================
+   Scene motion profiles — pair with the scene router (流派 A–F)
+   Set on <html data-motion="..."> next to data-theme / data-type.
+   ========================================================================== */
+
+/* 流派 A · Social / Agent party / playful community — expressive but bounded */
+[data-motion="playful"] {
+  --motion-ease-ui: var(--ease-out-quick);
+  --motion-ease-layout: var(--ease-spring-soft);
+  --motion-dur-layout: var(--dur-spring-soft);
+  --motion-ease-feedback: var(--ease-spring-bouncy);   /* reactions, likes, join-room pops */
+  --motion-dur-feedback: var(--dur-spring-bouncy);
+}
+
+/* 流派 B · B2B SaaS / fintech / dashboards — fast, no overshoot, never blocks input */
+[data-motion="precise"] {
+  --dur-base: 200ms;
+  --dur-moderate: 260ms;
+  --motion-ease-ui: var(--ease-out-quick);
+  --motion-ease-layout: var(--ease-spring-snappy);
+  --motion-dur-layout: var(--dur-spring-snappy);
+  --motion-ease-feedback: var(--ease-out-quick);
+  --motion-dur-feedback: var(--dur-instant);
+}
+
+/* 流派 C · AI canvas / node editor — physical, gesture-continuous */
+[data-motion="spatial"] {
+  --motion-ease-ui: var(--ease-standard);
+  --motion-ease-layout: var(--ease-spring-soft);
+  --motion-dur-layout: var(--dur-spring-soft);
+  --motion-ease-feedback: var(--ease-spring-snappy);
+  --motion-dur-feedback: var(--dur-spring-snappy);
+}
+
+/* 流派 D · Devtools / infra — terminal-crisp, almost no easing theatrics */
+[data-motion="technical"] {
+  --dur-base: 180ms;
+  --motion-ease-ui: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-layout: var(--ease-standard);
+  --motion-dur-layout: var(--dur-base);
+  --motion-ease-feedback: linear;
+  --motion-dur-feedback: var(--dur-instant);
+}
+
+/* 流派 E · Editorial / brand / portfolio — slow reveals, choreographed, scroll-led */
+[data-motion="editorial"] {
+  --dur-slow: 700ms;
+  --motion-ease-ui: var(--ease-standard);
+  --motion-ease-layout: var(--ease-enter);
+  --motion-dur-layout: var(--dur-slow);
+  --motion-ease-feedback: var(--ease-out-quick);
+  --motion-dur-feedback: var(--dur-fast);
+}
+
+/* 流派 F · Consumer productivity / lifestyle — soft, warm, continuous morphs */
+[data-motion="gentle"] {
+  --motion-ease-ui: var(--ease-out-quick);
+  --motion-ease-layout: var(--ease-spring-soft);
+  --motion-dur-layout: var(--dur-spring-soft);
+  --motion-ease-feedback: var(--ease-spring-soft);
+  --motion-dur-feedback: var(--dur-base);
+}
+
+/* ==========================================================================
+   Recipes (framework-free). Animate only transform / opacity / filter /
+   clip-path where possible — never width/height/top/left in hot paths.
+   ========================================================================== */
+
+/* R1 · Press feedback — instant down, spring back up */
+.m-press {
+  transition: transform var(--motion-dur-feedback) var(--motion-ease-feedback);
+}
+.m-press:active {
+  transform: scale(var(--press-scale));
+  transition-duration: var(--dur-instant);
+  transition-timing-function: var(--ease-out-quick);
+}
+
+/* R2 · Restrained hover — hairline + arrow nudge (instead of scale-105 + glow) */
+.m-hover-line {
+  box-shadow: 0 0 0 1px var(--border-subtle, rgba(0, 0, 0, 0.12));
+  transition: box-shadow var(--dur-fast) var(--motion-ease-ui),
+              background-color var(--dur-fast) var(--motion-ease-ui);
+}
+.m-hover-line:hover {
+  box-shadow: 0 0 0 1px var(--border-strong, currentColor);
+}
+.m-hover-line .m-arrow {
+  display: inline-block;
+  transition: transform var(--dur-fast) var(--motion-ease-ui);
+}
+.m-hover-line:hover .m-arrow {
+  transform: translateX(var(--shift-xs));
+}
+@media (hover: none) {
+  .m-hover-line:hover { box-shadow: 0 0 0 1px var(--border-subtle, rgba(0, 0, 0, 0.12)); }
+}
+
+/* R3 · Enter / exit for popovers, dialogs, toasts — @starting-style (no JS) */
+.m-pop {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity var(--dur-base) var(--ease-enter),
+    transform var(--dur-base) var(--ease-enter),
+    overlay var(--dur-base) allow-discrete,
+    display var(--dur-base) allow-discrete;
+}
+@starting-style {
+  .m-pop:popover-open,
+  .m-pop[open] {
+    opacity: 0;
+    transform: translateY(var(--shift-sm)) scale(0.98);
+  }
+}
+.m-pop:not(:popover-open):not([open]) {
+  opacity: 0;
+  transform: translateY(calc(var(--shift-sm) * -0.5)) scale(0.98);
+  transition-duration: calc(var(--dur-base) * var(--dur-exit-ratio));
+  transition-timing-function: var(--ease-exit);
+}
+
+/* R4 · Staggered list enter — set style="--i: n" per item */
+.m-stagger > * {
+  animation: m-rise var(--dur-moderate) var(--ease-enter) both;
+  animation-delay: calc(min(var(--i, 0), 6) * var(--stagger-step));
+}
+@keyframes m-rise {
+  from { opacity: 0; transform: translateY(var(--shift-md)); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* R5 · Scroll-driven reveal — progressive enhancement only */
+@supports (animation-timeline: view()) {
+  .m-reveal {
+    animation: m-rise 1ms linear both; /* non-zero duration for Firefox */
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+/* R6 · Skeleton shimmer — subtle, slow, low-contrast */
+.m-skeleton {
+  background: linear-gradient(90deg,
+    rgba(127, 127, 127, 0.10) 0%,
+    rgba(127, 127, 127, 0.18) 40%,
+    rgba(127, 127, 127, 0.10) 80%);
+  background-size: 300% 100%;
+  animation: m-shimmer 1.6s var(--ease-in-out-sine) infinite;
+  border-radius: 6px;
+}
+@keyframes m-shimmer {
+  from { background-position: 100% 0; }
+  to   { background-position: 0 0; }
+}
+
+/* R7 · Live-state breathing (agent "thinking", presence dot) */
+.m-breathe {
+  animation: m-breathe 2.4s var(--ease-in-out-sine) infinite;
+}
+@keyframes m-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.06); }
+}
+
+/* R8 · Number tick (counter changes) — vertical slide, tabular digits */
+.m-ticker { display: inline-flex; overflow: hidden; font-variant-numeric: tabular-nums; }
+.m-ticker > .m-digit { animation: m-tick var(--dur-base) var(--ease-out-quick) both; }
+@keyframes m-tick {
+  from { transform: translateY(60%); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+/* R9 · View Transitions — shared-element morph (SPA: document.startViewTransition) */
+::view-transition-group(*) {
+  animation-duration: var(--motion-dur-layout);
+  animation-timing-function: var(--motion-ease-layout);
+}
+::view-transition-old(root) {
+  animation: var(--dur-fast) var(--ease-exit) both m-fade-out;
+}
+::view-transition-new(root) {
+  animation: var(--dur-base) var(--ease-enter) both m-fade-in;
+}
+@keyframes m-fade-out { to { opacity: 0; } }
+@keyframes m-fade-in { from { opacity: 0; } }
+
+/* MPA cross-document transitions (progressive enhancement) */
+@view-transition { navigation: auto; }
+
+/* ==========================================================================
+   Accessibility — Reduce Motion: keep meaning, drop travel.
+   Replace movement/scale/parallax with short fades; keep state feedback.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  .m-pop, .m-press, .m-hover-line {
+    transition: opacity 120ms linear !important;
+    transform: none !important;
+  }
+  .m-breathe { animation: none !important; opacity: 1; }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}

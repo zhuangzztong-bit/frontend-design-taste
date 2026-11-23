@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="nordic-mint" data-type="precision-studio" data-motion="precise">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Motion Lab · Frontend Design Taste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../skills/design-taste-master/references/tokens/palettes.css" />
+<link rel="stylesheet" href="../skills/design-taste-master/references/tokens/typography.css" />
+<link rel="stylesheet" href="../skills/design-taste-master/references/tokens/motion.css" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg-primary);
+    color: var(--text-body);
+    font-family: var(--font-sans);
+    transition: background-color var(--dur-moderate) var(--ease-standard), color var(--dur-moderate) var(--ease-standard);
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 28px 80px; }
+  header.top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 28px; border-bottom: 1px solid var(--border-subtle); }
+  h1 { font-family: var(--font-display); color: var(--text-headline); font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: -0.03em; line-height: 1.05; margin: 8px 0 0; font-weight: 600; }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+
+  /* segmented scene switcher with sliding indicator (view-transition morph) */
+  .seg { position: relative; display: inline-flex; padding: 4px; border-radius: 999px; background: var(--bg-secondary); box-shadow: 0 0 0 1px var(--border-subtle); }
+  .seg button { position: relative; z-index: 1; border: 0; background: transparent; color: var(--text-body); font: 500 13px/1 var(--font-sans); padding: 10px 14px; border-radius: 999px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { color: var(--btn-text); background: var(--btn-bg); view-transition-name: seg-indicator; }
+
+  .meta { margin-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 28px; }
+  .cell { background: var(--bg-surface); border-radius: 14px; box-shadow: 0 0 0 1px var(--border-subtle); padding: 20px; min-height: 220px; display: flex; flex-direction: column; gap: 14px; }
+  .cell h3 { margin: 0; font-family: var(--font-display); color: var(--text-headline); font-size: 18px; letter-spacing: -0.01em; font-weight: 600; }
+  .cell p { margin: 0; font-size: 14px; line-height: 1.6; }
+  .stage { flex: 1; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; border-radius: 10px; background: var(--bg-secondary); padding: 18px; }
+
+  .btn { border: 0; cursor: pointer; font: 600 14px/1 var(--font-sans); padding: 12px 18px; border-radius: 10px; background: var(--btn-bg); color: var(--btn-text); }
+  .btn.ghost { background: transparent; color: var(--text-headline); }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: var(--bg-surface); color: var(--text-headline); font-size: 13px; box-shadow: 0 0 0 1px var(--border-subtle); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--tertiary, var(--accent)); }
+
+  .react { position: relative; }
+  .react .count { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .burst { position: absolute; left: 50%; top: 0; pointer-events: none; font-size: 14px; animation: burst var(--motion-dur-feedback) var(--ease-out-quick) forwards; }
+  @keyframes burst { from { opacity: 1; transform: translate(-50%, 0) scale(.6); } to { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), -34px) scale(1); } }
+  .react.bump { animation: bump var(--motion-dur-feedback) var(--motion-ease-feedback); }
+  @keyframes bump { 0% { transform: scale(.92); } 100% { transform: scale(1); } }
+
+  .list { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; gap: 8px; }
+  .list li { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 8px; background: var(--bg-surface); box-shadow: 0 0 0 1px var(--border-subtle); font-size: 13px; color: var(--text-headline); }
+  .list li span:last-child { font-family: var(--font-mono); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+  .card-expand { width: 100%; border-radius: 10px; background: var(--bg-surface); box-shadow: 0 0 0 1px var(--border-subtle); padding: 14px; cursor: pointer; view-transition-name: expand-card; }
+  .card-expand .more { display: none; margin-top: 10px; font-size: 13px; line-height: 1.6; }
+  .card-expand.open .more { display: block; }
+
+  dialog.m-pop, [popover].m-pop { border: 0; border-radius: 12px; padding: 16px 18px; background: var(--bg-surface); color: var(--text-headline); box-shadow: 0 12px 32px -12px rgba(0,0,0,.35), 0 0 0 1px var(--border-subtle); max-width: 280px; }
+  [popover].m-pop::backdrop, dialog.m-pop::backdrop { background: transparent; }
+
+  .curve { width: 100%; height: 90px; }
+  .legend { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); display: flex; gap: 12px; flex-wrap: wrap; }
+  .typing { display: inline-flex; gap: 4px; }
+  .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); animation: m-breathe 1.2s var(--ease-in-out-sine) infinite; }
+  .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+
+  /* Luma Spell 260 cursor-tracking radial spotlight */
+  .m-spotlight {
+    position: relative;
+    background:
+      radial-gradient(150px circle at var(--mx, 50%) var(--my, 50%),
+        color-mix(in oklab, var(--accent) 24%, transparent),
+        transparent 72%),
+      var(--bg-surface);
+  }
+
+  /* Linear Spell 245 5x5 dot-matrix reconnecting pill */
+  .matrix-pill { display: inline-flex; align-items: center; gap: 10px; padding: 7px 12px; border-radius: 999px; background: var(--bg-surface); box-shadow: 0 0 0 1px var(--border-subtle); font: 500 12px/1 var(--font-mono); color: var(--text-headline); }
+  .dot-grid { display: grid; grid-template-columns: repeat(5, 3px); gap: 2px; }
+  .dot-grid i { width: 3px; height: 3px; border-radius: 50%; background: var(--text-headline); opacity: .22; animation: dot-wave 1.5s var(--ease-in-out-sine) infinite; }
+  @keyframes dot-wave { 0%, 100% { opacity: .2; } 50% { opacity: .95; } }
+
+  /* Things take time Spell 329 in-place delete confirmation morph */
+  .del-row { display: flex; gap: 8px; width: 100%; align-items: center; }
+  .del-trigger { border: 0; cursor: pointer; border-radius: 10px; padding: 11px 14px; font: 600 13px/1 var(--font-sans); background: rgba(239, 68, 68, 0.14); color: #ef4444; view-transition-name: del-morph; }
+  .del-trigger.confirm { flex: 1; background: #ef4444; color: #ffffff; }
+  .del-main { flex: 1; border: 0; cursor: pointer; border-radius: 10px; padding: 11px 14px; font: 600 13px/1 var(--font-sans); background: var(--bg-surface); color: var(--text-headline); box-shadow: 0 0 0 1px var(--border-subtle); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">[ Frontend Design Taste · Motion Lab v2.1 ]</div>
+      <h1>同一组件，按场景换动效人格</h1>
+      <div class="meta" id="meta">profile=precise · layout=spring-snappy 315ms · feedback=out-quick 90ms</div>
+    </div>
+    <div class="seg" role="group" aria-label="motion profile">
+      <button data-p="precise" data-t="nordic-mint" aria-pressed="true">B · 精密控制台</button>
+      <button data-p="playful" data-t="party-stage" aria-pressed="false">A · 派对互动</button>
+      <button data-p="gentle" data-t="warm-paper" aria-pressed="false">F · 温柔工具</button>
+      <button data-p="technical" data-t="midnight-amber" aria-pressed="false">D · 开发者</button>
+    </div>
+  </header>
+
+  <section class="grid">
+    <article class="cell">
+      <div class="eyebrow">R1 + Spell 260 · Luma Spotlight</div>
+      <h3>按压与光标聚光：零尺寸缩放的精致触感</h3>
+      <div class="stage">
+        <button class="btn m-press">Send offer</button>
+        <button class="btn ghost m-press m-hover-line m-spotlight" id="spot">Invite Guests <span class="m-arrow">→</span></button>
+      </div>
+    </article>
+
+    <article class="cell">
+      <div class="eyebrow">Spell 351 Instagram + Spell 245 Linear</div>
+      <h3>反应粒子 vs 5×5 点阵轻量状态</h3>
+      <div class="stage">
+        <button class="btn react m-press" id="react">❤ <span class="count" id="count">128</span></button>
+        <span class="matrix-pill"><span class="dot-grid" id="matrix"></span>Reconnecting</span>
+      </div>
+    </article>
+
+    <article class="cell">
+      <div class="eyebrow">R3 · @starting-style + Spell 329 Morph</div>
+      <h3>原地二次确认 & 非阻断浮层</h3>
+      <div class="stage" style="flex-direction:column">
+        <div class="del-row" id="delRow">
+          <button class="del-trigger m-press" id="delBtn" title="Delete entry">🗑</button>
+          <button class="del-main m-press" id="mainBtn">Update 60.9 kg</button>
+        </div>
+        <button class="btn ghost m-hover-line" popovertarget="pop" style="font-size:12px;padding:7px 12px">打开角落提示浮层 <span class="m-arrow">↗</span></button>
+        <div id="pop" popover class="m-pop"><strong>Issue SAFE to investors</strong><p style="margin:6px 0 0;font-size:13px;color:var(--text-body)">入场 240ms 减速，退场 168ms 加速（0.7x）。</p></div>
+      </div>
+    </article>
+
+    <article class="cell">
+      <div class="eyebrow">R9 · View Transition morph</div>
+      <h3>卡片原地展开（共享元素连续性）</h3>
+      <div class="stage">
+        <div class="card-expand" id="expand">
+          <strong style="color:var(--text-headline)">Plan summary · 69.94% Allocated</strong>
+          <div class="more">展开内容沿原位置生长，而不是弹出新窗口；位置连续 = 用户不丢上下文（One Year 的胶囊→搜索栏同理）。</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="cell">
+      <div class="eyebrow">R4 · Stagger</div>
+      <h3>列表入场：40ms 步进，最多 6 项</h3>
+      <div class="stage">
+        <ul class="list m-stagger" id="list"></ul>
+      </div>
+      <button class="btn ghost m-press m-hover-line" id="replay" style="align-self:flex-start">重播 <span class="m-arrow">↻</span></button>
+    </article>
+
+    <article class="cell">
+      <div class="eyebrow">Curves</div>
+      <h3>当前 profile 的三条曲线</h3>
+      <svg class="curve" id="curve" viewBox="0 0 300 90" preserveAspectRatio="none"></svg>
+      <div class="legend"><span>— snappy 0%</span><span>— soft 0.8%</span><span>— bouncy 13.1%</span></div>
+    </article>
+  </section>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const meta = document.getElementById('meta');
+  const profiles = {
+    precise: 'layout=spring-snappy 315ms · feedback=out-quick 90ms · 无过冲',
+    playful: 'layout=spring-soft 450ms · feedback=spring-bouncy 501ms · 过冲 13%',
+    gentle: 'layout=spring-soft 450ms · feedback=spring-soft 240ms · 柔和',
+    technical: 'layout=standard 180ms · feedback=linear 90ms · 终端式利落'
+  };
+  const vt = (fn) => (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) ? document.startViewTransition(fn) : fn();
+
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    vt(() => {
+      document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      root.dataset.motion = b.dataset.p;
+      root.dataset.theme = b.dataset.t;
+      meta.textContent = 'profile=' + b.dataset.p + ' · ' + profiles[b.dataset.p];
+    });
+  }));
+
+  // reaction: bounce + particles only when playful
+  const react = document.getElementById('react'), count = document.getElementById('count');
+  let n = 128;
+  react.addEventListener('click', () => {
+    n++; count.textContent = n;
+    react.classList.remove('bump'); void react.offsetWidth; react.classList.add('bump');
+    if (root.dataset.motion === 'playful') {
+      for (let i = 0; i < 4; i++) {
+        const s = document.createElement('span'); s.className = 'burst'; s.textContent = '❤';
+        s.style.setProperty('--dx', (i - 1.5) * 12 + 'px');
+        s.style.animationDelay = i * 40 + 'ms';
+        react.appendChild(s); s.addEventListener('animationend', () => s.remove());
+      }
+    }
+  });
+
+  document.getElementById('expand').addEventListener('click', e => vt(() => e.currentTarget.classList.toggle('open')));
+
+  // Luma Spell 260 cursor spotlight
+  const spot = document.getElementById('spot');
+  spot.addEventListener('pointermove', e => {
+    const r = spot.getBoundingClientRect();
+    spot.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    spot.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+
+  // Linear Spell 245 5x5 dot-matrix wave
+  const mx = document.getElementById('matrix');
+  mx.innerHTML = Array.from({ length: 25 }, (_, i) => `<i style="animation-delay:${((i % 5) + Math.floor(i / 5)) * 90}ms"></i>`).join('');
+
+  // Things take time Spell 329 in-place delete confirmation morph
+  const delBtn = document.getElementById('delBtn'), mainBtn = document.getElementById('mainBtn');
+  let confirming = false;
+  delBtn.addEventListener('click', () => vt(() => {
+    confirming = !confirming;
+    delBtn.classList.toggle('confirm', confirming);
+    delBtn.textContent = confirming ? '🗑 DELETE ENTRY' : '🗑';
+    mainBtn.textContent = confirming ? 'Cancel' : 'Update 60.9 kg';
+  }));
+  mainBtn.addEventListener('click', () => {
+    if (confirming) vt(() => { confirming = false; delBtn.classList.remove('confirm'); delBtn.textContent = '🗑'; mainBtn.textContent = 'Update 60.9 kg'; });
+  });
+
+  const rows = [['Mercury · Operating', '$5,216,471.18'], ['Treasury', '$1,204,880.00'], ['Disputes', '1 / 9'], ['Payroll run', 'Nov 28'], ['Cards', '14 active']];
+  const list = document.getElementById('list');
+  const render = () => { list.innerHTML = rows.map((r, i) => `<li style="--i:${i}"><span>${r[0]}</span><span>${r[1]}</span></li>`).join(''); };
+  render();
+  document.getElementById('replay').addEventListener('click', () => { list.innerHTML = ''; requestAnimationFrame(render); });
+
+  // draw curves from CSS custom properties
+  function parseLinear(v) { const m = v.match(/linear\((.*)\)/); return m ? m[1].split(',').map(x => parseFloat(x)) : []; }
+  function draw() {
+    const cs = getComputedStyle(root), svg = document.getElementById('curve');
+    const names = ['--ease-spring-snappy', '--ease-spring-soft', '--ease-spring-bouncy'];
+    const colors = ['var(--text-muted)', 'var(--accent)', 'var(--secondary)'];
+    svg.innerHTML = '<line x1="0" y1="20" x2="300" y2="20" stroke="var(--border-subtle)" stroke-dasharray="3 3"/>' + names.map((nm, k) => {
+      const pts = parseLinear(cs.getPropertyValue(nm));
+      const d = pts.map((y, i) => `${(i / (pts.length - 1)) * 300},${85 - y * 65}`).join(' ');
+      return `<polyline fill="none" stroke="${colors[k]}" stroke-width="2" points="${d}"/>`;
+    }).join('');
+  }
+  draw();
+</script>
+</body>
+</html>

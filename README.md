@@ -6,7 +6,20 @@
 
 一个专为 **Antigravity** 打造的**场景驱动**前端设计审美提升插件（**v2.0**）。它不仅消除 AI 生成界面的同质化“AI 味”，更会在动手前**先分析你的项目用途、用户使用场景与目标情绪**，自动路由到最契合的设计流派（如多智能体互动派对、B2B 数据控制台、AI 节点画布、开发者工具、品牌官网、消费级效率工具），杜绝“一刀切”套模板。
 
-## v2.0 核心升级：先懂项目场景，再定视觉流派
+## v2.1 核心升级：场景化动效编排引擎（Motion Choreography System）
+
+- **15 个 Design Spells 帧级实测动效拆解（`03-interactions-curated-designspells.md`）**：新增 Linear 5×5 点阵离线重连、Luma 光标跟随局部聚光、Things take time 原地拉伸删除确认（零弹窗 Morph）、Granola 侧栏图标同构伸缩、ChatGPT 算力滑块色彩粒子联动、ElevenLabs 音色球体选择器、Shop 底部导航背后物理滚出返回键、Strava 单色线条庆祝转场、Dropbox 拖拽投放唤醒与 Vercel 零布局侵入 Logo 彩蛋。
+- **六大场景动效人格（`[data-motion]`，`06-motion-choreography-system.md` & `tokens/motion.css`）**：
+  - `playful`（流派 A 社交/派对：允许 `13.1%` 物理弹簧过冲、长按粒子反馈）
+  - `precise`（流派 B B2B 控制台：临界阻尼 `0%` 过冲、`315ms` 快速落定、`90ms` 即时按压）
+  - `spatial`（流派 C AI 画布/节点：柔和物理惯性与共享容器展开）
+  - `technical`（流派 D 开发者工具：`180ms` 终端级利落切换）
+  - `editorial`（流派 E 品牌官网/作品集：`700ms` 长减速揭示与渐进滚动时间轴）
+  - `gentle`（流派 F 消费级效率工具：温润微过冲与原地 Morph）
+- **物理阻尼弹簧生成的原生 CSS `linear()` 曲线**：通过二阶阻尼弹簧微分方程脚本（`gen_spring_linear.py`）精确采样 `--ease-spring-snappy`（`315ms`）、`--ease-spring-soft`（`450ms`）、`--ease-spring-bouncy`（`501ms`），结合 Material 3 进出场非对称曲线（退场时长 = 入场 × `0.7`）、View Transitions API、`@starting-style` + `allow-discrete` 及 Apple HIG 减动效无障碍降级。
+- **可交互动效实验室**：内置 `examples/motion-lab.html`，可一键切换不同场景动效人格并实时对比弹簧曲线与 9 大原生动效配方。
+
+## v2.0 核心基础：先懂项目场景，再定视觉流派
 
 - **六大产品场景风格路由矩阵（`00-scene-style-router.md`）**：根据项目用途与用户心态，动态决定视觉隐喻、构图骨架、色彩温度、字族组合、微交互策略以及该场景专属的“反面禁区”。
 - **强制前置《场景与风格决策卡》**：无论是新建页面还是重构已有项目，先输出场景诊断与流派定位，再动手写代码。

@@ -24,9 +24,17 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 
-  /* Crisp, restrained motion curves (Curated & Design Spells) */
-  --ease-snappy: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Motion Easing & Physical Spring Tokens (from motion.css v2.1) */
+  --ease-snappy: var(--ease-out-quick, cubic-bezier(0.22, 1, 0.36, 1));
+  --ease-standard: var(--ease-standard, cubic-bezier(0.2, 0, 0, 1));
+  --ease-enter: var(--ease-enter, cubic-bezier(0.05, 0.7, 0.1, 1));
+  --ease-exit: var(--ease-exit, cubic-bezier(0.3, 0, 0.8, 0.15));
+  --ease-spring: var(--ease-spring-snappy);
+  --ease-spring-soft: var(--ease-spring-soft);
+  --ease-spring-bouncy: var(--ease-spring-bouncy);
+  --ease-scene-ui: var(--motion-ease-ui);
+  --ease-scene-layout: var(--motion-ease-layout);
+  --ease-scene-feedback: var(--motion-ease-feedback);
 
   /* Restrained elevation (no glowing neon drop shadows) */
   --shadow-hairline: 0 1px 2px rgba(15, 23, 42, 0.05);

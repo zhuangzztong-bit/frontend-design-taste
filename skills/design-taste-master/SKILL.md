@@ -17,6 +17,7 @@ description: 场景驱动的高审美前端设计与优化工作流（v2.0）。
 - **核心用户与使用场景**：<谁在什么状态下打开它？高频核心动作是什么？>
 - **目标情绪关键词**：<2~3 个精准形容词，如“鲜活热闹 / 空间临场感”或“精密克制 / 值得托付”>
 - **选定风格流派**：<从流派 A~F 中选定主风格（必要时标明主副分区）>
+- **绑定动效人格**：<从 `data-motion="playful" | "precise" | "spatial" | "technical" | "editorial" | "gentle"` 中选定对应配置>
 - **为何不选其他风格**：<一句话避免套错模板，如“非财务工具，禁用沉闷灰白报表风”>
 - **对标真实案例**：<从 10 大网站中选 2~3 个最契合的标杆>
 ```
@@ -30,25 +31,34 @@ description: 场景驱动的高审美前端设计与优化工作流（v2.0）。
 - **流派 C（AI 画布 / 节点工作流）** → 重点读 [01-product-ui-mobbin-refero.md](references/01-product-ui-mobbin-refero.md)（Endless）+ [03-interactions-curated-designspells.md](references/03-interactions-curated-designspells.md)（Subframe）
 - **流派 D/E（开发工具 / 品牌官网 / 作品集）** → 重点读 [02-landing-pages-siteinspire-lapa.md](references/02-landing-pages-siteinspire-lapa.md)
 - **流派 F（消费级效率 / 生活方式）** → 重点读 [01-product-ui-mobbin-refero.md](references/01-product-ui-mobbin-refero.md)（SavvyCal）+ [03-interactions-curated-designspells.md](references/03-interactions-curated-designspells.md)（One Year / Notion Calendar）
-- **所有流派必读定字定色**：[04-typography-fiu-typewolf.md](references/04-typography-fiu-typewolf.md) + [05-color-systems-happyhues-realtime.md](references/05-color-systems-happyhues-realtime.md)
+- **所有流派必读定字、定色与定动效**：
+  - [04-typography-fiu-typewolf.md](references/04-typography-fiu-typewolf.md)
+  - [05-color-systems-happyhues-realtime.md](references/05-color-systems-happyhues-realtime.md)
+  - [06-motion-choreography-system.md](references/06-motion-choreography-system.md)（含 6 大场景动效人格、物理弹簧 `linear()` 曲线与现代原生 Web 动效范式）
 
 ## Step 3：确立与场景匹配的“媒介隐喻”与布局骨架
 - 互动/派对类（如 AgentParty）→ 舞台/房间/席位/实时气泡流，让角色状态与互动成为绝对主角；
 - 数据/后台类 → 固定窄侧栏 + 全局 `⌘K` 顶栏 + 高信噪比卡片与表格；
 - 官网/作品集 → 物理媒介隐喻（书脊、活页纸、等距线框、索引目录）+ 首屏直出真实 Artifact + 双轨 CTA。
 
-## Step 4：按场景挑选配色与字体 Token
+## Step 4：按场景挑选配色、字体与动效 Token
 从内置预设中选择匹配当前流派的主题（也可基于 Realtime Colors 4 步法则做品牌色微调）：
 - 配色预设：[palettes.css](references/tokens/palettes.css)（含 10 套主题，覆盖活力派对 `party-stage` / `arcade-pop`、清爽 SaaS `nordic-mint`、森林工程 `forest-blueprint`、暖纸编辑 `warm-paper`、高反差暗黑 `midnight-amber` / `slate-dark` 等）
 - 排版预设：[typography.css](references/tokens/typography.css)（5 套 100% 免费 Google Fonts 三字族系统，含中文回退栈）
+- 动效预设：[motion.css](references/tokens/motion.css)（6 套 `[data-motion]` 场景动效人格、3 条阻尼弹簧物理微分方程生成的 `linear()` 曲线、M3 进出场贝塞尔三元组及 9 大零依赖 CSS 动效配方 `.m-press` / `.m-hover-line` / `.m-pop` / `.m-stagger` / `.m-reveal` / `.m-skeleton` / `.m-breathe` / `.m-ticker` / View Transitions）
 - Tailwind 映射：[tailwind-theme.css](references/tokens/tailwind-theme.css)
+- 可交互参考实验室：`examples/motion-lab.html`
 
 **强制底线**：核心色 <= 6 色（多角色互动可加受控角色标识色）；亮按钮必配深色字（WCAG AA >= 4.5:1）；禁用无理由紫蓝霓虹光晕。
 
-## Step 5：填充场景真实度与定制化微交互
+## Step 5：填充场景真实度与场景化动效编排（详见 `06-motion-choreography-system.md`）
 - 数据/内容贴合真实业务，杜绝 `Lorem ipsum` 与空洞假数字；数值开启 `tabular-nums`。
-- 微交互匹配情绪：工具类追求利落克制（`cubic-bezier(0.22, 1, 0.36, 1)`、`1px` 描边提亮、原地 Morph）；互动/社区类增加有温度的物理弹性（`cubic-bezier(0.34, 1.56, 0.64, 1)`、长按递进反馈、角色状态呼吸感与无干扰小彩蛋）。
-- 必须兼容 `@media (prefers-reduced-motion: reduce)`。
+- **动效严格按 `[data-motion]` 场景人格落地**：
+  - 工具/控制台（`precise` / `technical`）：零过冲弹簧（`--ease-spring-snappy`, `315ms`）+ `90ms` 即时按压 + `1px` 描边提亮或光标跟随局部光斑（Luma 式）+ 5×5 点阵轻量状态指示（Linear 式）。
+  - 派对/互动社区（`playful`）：允许 `13%` 弹性过冲（`--ease-spring-bouncy`, `501ms`）、长按递进粒子反馈（Instagram 式）、角色思考呼吸点（`.m-breathe`）。
+  - 画布/效率工具（`spatial` / `gentle`）：优先使用 `document.startViewTransition()` + `view-transition-name` 实现共享元素原地 Morph（One Year 胶囊变搜索栏、Things take time 原地拉伸删除确认条），以及 `@starting-style` + `allow-discrete` 实现浮层进出场（退场时长 = 入场 × `0.7`）。
+  - 品牌叙事/官网（`editorial`）：长减速入场（`--ease-enter`, `700ms`）与 `@supports (animation-timeline: view())` 渐进滚动揭示（`.m-reveal`）。
+- **性能与无障碍硬约束**：严禁 `transition: all`；列表交错入场 `40ms` 步进且最多前 6 项递增；在 `@media (prefers-reduced-motion: reduce)` 下取消位移/缩放，保留 `120ms` 透明度过渡。
 
 ## Step 6：交付前场景契合度与反“AI味”双轨自检
 1. **场景契合度**：如果遮住 Logo，用户能不能在 3 秒内看出这是什么用途的产品、产生对应的情绪？

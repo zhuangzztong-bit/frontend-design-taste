@@ -1,10 +1,10 @@
 {
   "name": "frontend-design-taste",
   "displayName": "Frontend Design Taste",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "homepage": "https://github.com/zhuangzztong-bit/frontend-design-taste",
   "repository": "https://github.com/zhuangzztong-bit/frontend-design-taste",
-  "description": "Context-aware frontend design taste plugin: analyzes your project's purpose and user scenarios first, routes to the right visual archetype (Social/Agent Party, B2B SaaS, AI Canvas, DevTools, Editorial/Portfolio, Consumer App), and applies real-world patterns from 10 curated design sites with reusable CSS/Tailwind tokens.",
+  "description": "Context-aware frontend design taste & motion choreography plugin (v2.1): analyzes your project's purpose and user scenarios first, routes to the right visual & motion archetype ([data-theme], [data-type], [data-motion]), and applies real-world patterns from 10 curated design sites with physics-generated CSS linear() springs, View Transitions, @starting-style recipes, and Tailwind tokens.",
   "logo": "assets/logo.svg",
   "suggestedPrompts": [
     "先分析这个项目的用途和用户使用场景，选出最适合的设计流派再帮我重构页面",
